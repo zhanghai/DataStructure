@@ -6,7 +6,6 @@
 #ifndef _VECTOR_CB_TREE_H_
 #define _VECTOR_CB_TREE_H_
 
-#include <cstddef>
 #include <stdexcept>
 #include <vector>
 
@@ -16,6 +15,8 @@ template<typename T>
 class VectorCBTree {
 
 public:
+
+    typedef typename std::vector<T>::size_type size_type;
 
     class Iterator {
 
@@ -131,11 +132,11 @@ public:
     VectorCBTree(std::vector<T> storage = std::vector<T>())
             : storage(storage) {}
 
-    size_t size() {
+    size_type size() {
         return storage.size();
     }
 
-    void reserve(size_t capacity) {
+    void reserve(size_type capacity) {
         storage.reserve(capacity);
     }
 
@@ -147,7 +148,7 @@ public:
         storage.pop_back();
     }
 
-    T& get(size_t index) {
+    T& get(size_type index) {
         return storage.at(index);
     }
 
@@ -159,7 +160,7 @@ public:
         return get(size() - 1);
     }
 
-    void set(size_t index, const T& element) {
+    void set(size_type index, const T& element) {
         get(index) = element;
     }
 
@@ -184,7 +185,7 @@ public:
         std::cout << std::endl;
     }
 
-    typename VectorCBTree<T>::Iterator at(size_t index) {
+    typename VectorCBTree<T>::Iterator at(size_type index) {
         return Iterator(this, index);
     }
 

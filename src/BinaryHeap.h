@@ -6,7 +6,6 @@
 #ifndef _BINARY_HEAP_H_
 #define _BINARY_HEAP_H_
 
-#include <cstddef>
 #include <functional>
 
 #include "VectorCBTree.h"
@@ -16,6 +15,8 @@ template<typename T, typename CBTree = VectorCBTree<T>,
 class BinaryHeap {
 
 private:
+
+    typedef typename CBTree::size_type size_type;
 
     typedef typename CBTree::Iterator Iterator;
 
@@ -36,11 +37,11 @@ public:
         }
     }
 
-    size_t size() {
+    size_type size() {
         return cbTree.size();
     }
 
-    void reserve(size_t capacity) {
+    void reserve(size_type capacity) {
         cbTree.reserve(capacity);
     }
 
@@ -59,7 +60,7 @@ public:
         return minElement;
     }
 
-    void set(size_t index, const T& element) {
+    void set(size_type index, const T& element) {
         Iterator iter = cbTree.at(index);
         T oldElement = iter.get();
         iter.set(element);
@@ -70,7 +71,7 @@ public:
         }
     }
 
-    T remove(size_t index) {
+    T remove(size_type index) {
         Iterator iter = cbTree.at(index);
         T element = iter.get();
         percolateUp(iter, true);
